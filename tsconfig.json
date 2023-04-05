@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS",
+    "lib": ["ES6"],
+    "allowJs": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": true,
+    "strict": true,
+    "outDir": "build",
+    "rootDir": "src",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+
+  }
+}
