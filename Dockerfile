@@ -14,10 +14,10 @@ RUN npm install
 COPY src/ src/
 
 # Build the TypeScript code
-RUN npm run build
+RUN yarn run build
 
 # Expose port 3000
 EXPOSE 3000
 
 # Run the app
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
