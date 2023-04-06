@@ -12,10 +12,15 @@ export type Qrcode ={
 class Sender extends Chat {
     client: venom.Whatsapp;
     private isConnected: boolean;
+    private qrcodeUrl: string;
+
+    get isConnection(): boolean { return this.isConnected; }
+    get qrcodeURI(): string { return this.qrcodeUrl; }
 
     constructor(){
         super();
-        this.isConnected = false
+        this.isConnected = false;
+        this.qrcodeUrl = "teste";
     }
 
     private async onMessage(msg:any) {
@@ -63,11 +68,14 @@ class Sender extends Chat {
         this.client.onMessage((e) => this.onMessage(e));
     }
 
+    private qrcode(base64Qrimg:any, asciiQR:any, attempts:any, urlCode:any){
+        this.qrcodeUrl = urlCode;
+    }
+
     public WPPinitialize(): void {
         venom.create('gpt-sender-ws', 
-            () => null, 
-            e => this.WppStatus(e))
-                .then(client => this.WppStart(client))
+            (base64Qrimg, asciiQR, attempts, urlCode) => this.qrcode(base64Qrimg, asciiQR, attempts, urlCode), 
+            (e:any) => this.WppStatus(e)).then(client => this.WppStart(client))
                 .catch(err=> console.error(err));
         
     }

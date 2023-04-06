@@ -10,10 +10,10 @@ class Server extends Sender{
         super();
         this.app = express();
         this.app.use(express.json());
-        this.app.get('/',this.getQrcode);
+        this.app.get('/',(r,e) => this.getQrcode(r,e));
         this.init();
 
-        this.gpt_initialize();
+        // this.gpt_initialize();
 
         this.WPPinitialize();
     }
@@ -25,8 +25,8 @@ class Server extends Sender{
     }
 
     async getQrcode(req: Request, res: Response){
-      if(typeof(this.client) == "undefined") return res.status(405);
-        const qrcodeUrl = (await this.client.getQrCode()).urlCode;
+      if(this.isConnection) return res.status(200).send({connection:true});
+        const qrcodeUrl = await qrcode.toDataURL(this.qrcodeURI);
         const html = `
     <!DOCTYPE html>
     <html>
