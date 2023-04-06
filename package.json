@@ -11,7 +11,7 @@
     "nodemon": "^2.0.22"
   },
   "scripts": {
-    "build": "rimraf ./build && tsc",
+    "build": "rimraf ./build && tsc -p .",
     "dev": "nodemon",
     "start": "node build/app.js"
   },

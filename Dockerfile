@@ -1,25 +1,31 @@
-# Define the base image
+# Define a imagem base do node
 FROM node:18
 
-# Set the working directory
+# Define as variáveis ​​de ambiente
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+
+# Instala o Chromium
+RUN apt-get update && \
+    apt-get install -y chromium && \
+    rm -rf /var/lib/apt/lists/*
+
+# Define o diretório de trabalho
 WORKDIR /app
 
-# Copy the package.json and package-lock.json files
+# Copia os arquivos necessários
 COPY package*.json ./
-
-RUN npm install yarn
-
-# Install dependencies
-RUN yarn
-
-# Copy the src folder
+COPY tsconfig*.json ./
 COPY src/ src/
 
-# Build the TypeScript code
-RUN yarn run
+# Instala as dependências do projeto
+RUN npm install --silent
 
-# Expose port 3000
+# Compila o código TypeScript
+RUN npm run build
+
+# Expor a porta do servidor
 EXPOSE 3000
 
-# Run the app
-CMD ["yarn", "start"]
+# Inicializa o servidor
+CMD ["npm", "run", "start"]

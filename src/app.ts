@@ -10,12 +10,19 @@ class Server extends Sender{
         super();
         this.app = express();
         this.app.use(express.json());
-        this.app.get('/',(r,e) => this.getQrcode(r,e));
+        this.app.get('/qr',(r,e) => this.getQrcode(r,e));
+        this.app.get('/',(r,e) => this.home(r,e));
         this.init();
 
         this.gpt_initialize();
 
         this.WPPinitialize();
+    }
+
+    private async home (req: Request, res: Response){
+      res.send({
+        okay:"TRUE"
+      })
     }
 
     private init(){
