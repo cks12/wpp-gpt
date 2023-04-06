@@ -17,13 +17,14 @@
     "start": "node build/app.js"
   },
   "dependencies": {
-    "rimraf": "^4.4.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "libphonenumber-js": "^1.10.26",
     "openai": "^3.2.1",
     "qrcode": "^1.5.1",
+    "rimraf": "^4.4.1",
     "ts-node": "^10.9.1",
+    "tsc": "^2.0.4",
     "venom-bot": "^4.3.7"
   }
 }
