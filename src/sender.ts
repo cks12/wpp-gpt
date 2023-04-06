@@ -18,18 +18,27 @@ class Sender extends Chat {
         this.isConnected = false
     }
 
-    private async onMessage(msg: venom.Message) {
+    private async onMessage(msg:any) {
+        console.log(msg);
         const client = msg.from;
-        if(msg.isMMS) return await this.sendMsg(client, "> Bem vindo a assistente desenvolvida pelo Caio Caik Fresneda de Souza faça a sua pergunta e logo ela sera respondida");
-        if(msg.isMedia) return await this.sendMsg(client, "> Suporte a media não fornecido ainda");
-        if(msg.isNotification) return;
-        if(!msg.isNewMsg || msg.isPSA) return this.sendMsg(client, "> a gente não trabalha com isso ainda");
+
+
+        if (msg.wavForm || msg.hasReaction) return this.sendMsg(client,"> Audios não são surpotados ainda!");
+
+        if (msg.from == "status@broadcast") return this.sendMsg(client,"> status@broadcast");
+
+        
         const GPT_prompt = msg.body;
-        await this.sendMsg(client, "> Estou processando a sua msg");
+        
+        if (typeof(GPT_prompt) !== "string") return this.sendMsg(client,"> Formato não suportado");
+        
+        this.client.startTyping(client);
         
         const GPT_Response = await this.generateresponse(GPT_prompt) as string;
 
-        await this.sendMsg(client,GPT_Response);
+        await this.sendMsg(client, GPT_Response);
+
+        this.client.stopTyping(client);
     }
 
     async sendMsg(to: string, body: string): Promise<void> {

@@ -20,14 +20,20 @@ class Chat {
     }
 
     public async generateresponse(p: string) {
-        const responseConfig: CreateChatCompletionRequest = {
-            model:"gpt-3.5-turbo",
-            messages:[{"content":p,"role":"user"}],
-            temperature: 0.7,
-        };
+        try {
+            const responseConfig: CreateChatCompletionRequest = {
+                model:"gpt-3.5-turbo",
+                messages:[{"content":p,"role":"user"}],
+                temperature: 0.7,
+            };
+    
+            const response = await this.openai.createChatCompletion(responseConfig);
+            return response.data.choices[0].message?.content;
 
-        const response = await this.openai.createChatCompletion(responseConfig);
-        return response.data.choices[0].message?.content;
+        }
+        catch(err) {
+            return `${err}`
+        }
     }
 }
 
