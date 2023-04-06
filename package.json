@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "build/app.js",
   "license": "MIT",
+  "author": "Caio Caik Fresneda de Souza",
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.17",
