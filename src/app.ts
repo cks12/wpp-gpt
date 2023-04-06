@@ -13,7 +13,7 @@ class Server extends Sender{
         this.app.get('/',(r,e) => this.getQrcode(r,e));
         this.init();
 
-        // this.gpt_initialize();
+        this.gpt_initialize();
 
         this.WPPinitialize();
     }
