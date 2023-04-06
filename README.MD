@@ -31,10 +31,13 @@ $ cd wpp-gpt
 # Instale as dependências
 $ npm install
 
+# Vá no site da open ai, e consiga a api key e a api org 
+# depois, abra o .env e coloque os seus valores
+
 # Execute a aplicação em modo de desenvolvimento
 $ npm run dev
 
-# O servidor inciará na porta:3000 - acesse <http://localhost:300>
+# O servidor inciará na porta:3000 - acesse <http://localhost:3000>
 # Escaneie o codigo qr
 ```
 
